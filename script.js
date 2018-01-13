@@ -11,6 +11,7 @@ window.onload = function() {
 	ageElement = document.createElement('input');
 	ageElement.type = 'text';
 	ageElement.name = 'age';
+	ageElement.placeholder = '0';
 	validationForm.appendChild(ageElement);
 	
 	// add username element
@@ -35,7 +36,7 @@ window.onload = function() {
 	validationForm.appendChild(submitElement);
 }
 
-function validateForm() {
+function validateForm(event) {
 	if (!validateNumbersOnly(ageElement.value)) {
 		alert('your age is invalid');
 	}
@@ -45,6 +46,7 @@ function validateForm() {
 	if (!validateDate(dateElement.value)) {
 		alert('your data is invalid');
 	}
+	event.preventDefault();
 }
 
 function validateNumbersOnly(str) {
@@ -61,16 +63,13 @@ function validateDate(str) {
 	var result = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/.test(str);
 	
 	if (result) {
-		//var dateFromStr = Date(str);
 		var dateSpl = str.split('/');
 		var formatStr = dateSpl[2] + '-' + dateSpl[1] + '-' + dateSpl[0];
 		var curDate = new Date();
 		var dateFromStr = new Date(formatStr);
-
-		if (curDate.getDay() == dateFromStr.getDay() && 
-		    curDate.getMonth() == dateFromStr.getMonth() &&
-		    curDate.getYear() == dateFromStr.getYear()) {
-			return true;
+		
+	if (curDate.getDay() == dateFromStr.getDay() && 		    curDate.getMonth() == dateFromStr.getMonth() &&		    curDate.getYear() == dateFromStr.getYear()) {
+	   return true;
 		}
 	}
 	
